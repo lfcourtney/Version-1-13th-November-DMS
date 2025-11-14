@@ -17,18 +17,20 @@ class StaffAnimal:
 
     # Read all the animals that are the responsibility of the given staff, as identified by the 'staff_id'
     def read_staff_animals(self):
+        try:
+            sql = """
+                SELECT animal.animal_id, animal_type.animal_type_name
+                FROM staff_animal
+                JOIN animal
+                ON staff_animal.animal_id = animal.animal_id
+                JOIN animal_type
+                ON animal.animal_type_id = animal_type.animal_type_id
+                WHERE staff_animal.staff_id = ?
+            """
 
-        sql = """
-            SELECT animal.animal_id, animal_type.animal_type_name
-            FROM staff_animal
-            JOIN animal
-            ON staff_animal.animal_id = animal.animal_id
-            JOIN animal_type
-            ON animal.animal_type_id = animal_type.animal_type_id
-            WHERE staff_animal.staff_id = ?
-        """
-
-        cursor.execute(sql, (self.__staff_id,))
+            cursor.execute(sql, (self.__staff_id,))
+        except sqlite3.OperationalError as error:
+            print("\nFailed to read staff_animal table", error)
 
         records = cursor.fetchall()
         for record in records:
