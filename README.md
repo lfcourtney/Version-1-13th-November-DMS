@@ -9,3 +9,9 @@ zoo.db (database) will be created relative to the default Python workspace confi
 ## Entity-Relationship Diagram (ERD)
 
 ![Version 1 Python DMS](./entity_relationship_diagram.png "Version 1 Python DMS")
+
+## Test
+
+With `pytest` installed, run this command in **Default Python Workspace directory**
+
+> python -m pytest -s .\13th_november_version1_DMS\test_database.py
